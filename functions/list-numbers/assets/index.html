@@ -1164,6 +1164,8 @@ console.log (ajson);
     //console.log (err);
     error.style.display = "";
     info.style.display = "none";
+    progress.style.display = "none";
+    progress.innerHTML = ``;
     error.innerHTML = `Something went wrong: ${err} - if you receive a JSON error, check if the inserted Account SID is correct and that it exists under the Main account you are using.`;
   }
 }
