@@ -15,3 +15,5 @@ The fourth one allows you to check the usage in a desired time period for every 
 In order to use each function you need to know your Password. 
 
 The functions where you need to list numbers or usage allow you to download the results in a txt or csv format. 
+
+The dowloaded data should be opened or copied in an Excel file and you can use the text-to-column feature to separate the information. The delimiters are ; or | so please check which delimiter is present for your data. 
