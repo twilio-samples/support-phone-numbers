@@ -3,7 +3,9 @@
 This repository contains code examples that should be copied to Twilio Functions in Console:
 https://console.twilio.com/us1/develop/functions/services
 
-Each folder/directory contains sub-directories "assets" and "function", and each file in those sub-directories should be copied to the assets and function section of the Function created on the above link. 
+Or you can use them on your own JavaScript Server. 
+
+Each folder/directory contains sub-directories "assets" and "functions", and each file in those sub-directories should be copied to the assets and function section of the Function created on the above link. 
 
 Detailed steps are below:
 
@@ -11,7 +13,7 @@ Detailed steps are below:
 - You will have the option to search the logs of the subaccount in the created apps.
  
 Steps to take:
-1. Open the GIT repository for the desired function. We will reference this as we create the function in Console.
+1. Open the GIT repository for the desired function. We will reference this as we create the online function in Console.
 2. Create a new Function in Console by going to Functions & Assets > Services > Create a new Service.
 3. Add a new function (button in top left corner) and give it the same name as the function in the GIT folder (without .js extension).
 4. Repeat step 3 for every Function in the GIT folder.
