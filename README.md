@@ -3,7 +3,7 @@
 This repository contains code examples that should be copied to Twilio Functions in Console:
 https://console.twilio.com/us1/develop/functions/services
 
-Each folder/directory contains sub-directories "assets" and "function", and each file in those sub-direcgtories should be copied to the assets and function section of the Function created on the above link. 
+Each folder/directory contains sub-directories "assets" and "function", and each file in those sub-directories should be copied to the assets and function section of the Function created on the above link. 
 
 Detailed steps are below:
 
