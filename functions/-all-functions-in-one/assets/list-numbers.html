@@ -370,7 +370,7 @@
                 Only show results for numbers that start with (filter based on
                 country-code):
               </p>
-              <input id="startNumber" type="text" name="startNumber" />
+              <input id="startNumber" type="text" name="startNumber" value='+' />
               <br />
               <div>
                 Use Pagination?
@@ -537,6 +537,9 @@ async function list_numbers(down) {
           info.style.display = "none";
           progress.innerHTML = '';
           progress.style.display = "none";
+          for (m = 0; m < numberProperties.length; m++) {
+            numberProperties[m].disabled = false;
+          }
           error.innerHTML = `Wrong password.`;
           return;
         }
@@ -544,6 +547,9 @@ async function list_numbers(down) {
         error.style.display = "";
         progress.innerHTML = '';
         progress.style.display = "none";
+        for (m = 0; m < numberProperties.length; m++) {
+          numberProperties[m].disabled = false;
+        }
         error.innerHTML = `Something went wrong with getting the list of accounts:<br /> Server error is ${aresponse.message}<br /> Server status is ${aresponse.status}`;
         return;
       }
@@ -583,6 +589,9 @@ console.log (ajson);
               info.innerHTML = "";
               progress.style.display = "none";
               progress.innerHTML = ``;
+              for (m = 0; m < numberProperties.length; m++) {
+                numberProperties[m].disabled = false;
+              }
               error.innerHTML = `Wrong password.`;
               console.log(response);
               return;
@@ -833,6 +842,9 @@ console.log (ajson);
             info.style.display = "none";
             progress.style.display = "none";
             progress.innerHTML = ``;
+            for (m = 0; m < numberProperties.length; m++) {
+              numberProperties[m].disabled = false;
+            }
             error.innerHTML = `Something Wrong: ${json.error} <br />Server response status is: ${response.status}
               <br />Server message is: ${response.message}`;
             return;
@@ -885,6 +897,9 @@ console.log (ajson);
             info.innerHTML = "";
             progress.style.display = "none";
             progress.innerHTML = ``;
+            for (m = 0; m < numberProperties.length; m++) {
+              numberProperties[m].disabled = false;
+           }
             error.innerHTML = `Wrong password.`;
             console.log(response);
             return;
@@ -1132,6 +1147,9 @@ console.log (ajson);
           info.style.display = "none";
           progress.style.display = "none";
           progress.innerHTML = ``;
+          for (m = 0; m < numberProperties.length; m++) {
+            numberProperties[m].disabled = false;
+          }
           error.innerHTML = `Something Wrong: ${json.error} <br />Server response status is: ${response.status}
               <br />Server message is: ${response.message}`;
           return;
@@ -1185,6 +1203,9 @@ console.log (ajson);
     info.style.display = "none";
     progress.style.display = "none";
     progress.innerHTML = ``;
+    for (m = 0; m < numberProperties.length; m++) {
+        numberProperties[m].disabled = false;
+    }
     error.innerHTML = `Something went wrong: ${err} - if you receive a JSON error, check if the inserted Account SID is correct and that it exists under the Main account you are using.`;
   }
 }
