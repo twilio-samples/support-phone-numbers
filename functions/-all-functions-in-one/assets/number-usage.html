@@ -657,6 +657,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.style.display = "none";
           progress.innerHTML = ``;
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Wrong password.`;
           return;
         }
@@ -1237,6 +1240,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.innerHTML = ``;
           progress.style.display = "none";
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Something is wrong with getting Message logs: ${messagesLog.error}`;
         }
       } // while closed
@@ -1267,6 +1273,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.style.display = "none";
           progress.innerHTML = ``;
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Wrong password.`;
           return;
         }
@@ -1405,6 +1414,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.innerHTML = ``;
           progress.style.display = "none";
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Something is wrong with getting Message logs: ${messagesLog.error}`;
         }
       } // while closed
@@ -1448,6 +1460,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.style.display = "none";
           progress.innerHTML = ``;
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Wrong password.`;
           return;
         }
@@ -2025,6 +2040,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.innerHTML = ``;
           progress.style.display = "none";
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Something is wrong with getting call logs: ${callLog.error}`;
           return;
         }
@@ -2058,6 +2076,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.style.display = "none";
           progress.innerHTML = ``;
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Wrong password.`;
           return;
         }
@@ -2211,6 +2232,9 @@ async function checkUsage(down) {
           info.style.display = "none";
           progress.innerHTML = ``;
           progress.style.display = "none";
+          document.getElementById("Messages").disabled = false;
+          document.getElementById("Calls").disabled = false;
+          document.getElementById("CountryYes").disabled = false;
           error.innerHTML = `Something is wrong with getting call logs: ${callLog.error}`;
           return;
         }
@@ -2384,6 +2408,9 @@ async function checkUsage(down) {
     info.style.display = "none";
     progress.innerHTML = ``;
     progress.style.display = "none";
+    document.getElementById("Messages").disabled = false;
+    document.getElementById("Calls").disabled = false;
+    document.getElementById("CountryYes").disabled = false;
     error.innerHTML = `Something went wrong: ${err} - if you see a JSON error, please check that the correct subaccount was added.`;
   }
 }
