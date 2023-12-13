@@ -3,9 +3,12 @@
 This repository contains code examples that should be copied to Twilio Functions in Console:
 https://console.twilio.com/us1/develop/functions/services
 
-Or you can use them on your own JavaScript Server. 
+Or you can use them on your own JavaScript Server.
 
-Each folder/directory contains sub-directories "assets" and "functions", and each file in those sub-directories should be copied to the assets and function section of the Function created on the above link. 
+Each folder/directory contains subdirectories "assets" and "functions", and each file in those sub-directories should be copied to the assets and function section of the Function created on the above link.
+
+Before you implement the Function on your Twilio account, you can test the functionalities on our Demo account:
+https://numbers-management-2392.twil.io/index.html
 
 Detailed steps are below:
 
@@ -32,3 +35,5 @@ Steps to take:
 - Change the Node version to 18 at the top.
 15. Click “Deploy All”, and wait for deployment.
 16. Click on index.html and in the bottom right corner click on “Copy URL” and paste it in a new browser tab. This will open the app.
+
+For most of the apps, in the results you will see data in rows, and a special character (separator) is used to divide the data. When you download the file, open it with an Excel tool and use text-to-columns to divide the data in separate columns based on the special character present (usually ; or | ). 
