@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 
 <html lang="en">
   <head>
@@ -15,17 +15,6 @@
       href="ce-paste-theme.css"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/css/intlTelInput.min.css"
-      integrity="sha256-xpVuhxDPR39wFEQDha4W7kuMx+z9Av3dTS8MbH/RWEU="
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/js/intlTelInput.min.js"
-      integrity="sha256-uPbemOnf3P4eaeLHebLwPC71YRbu3WNBvO4ibYeBnGs="
-      crossorigin="anonymous"
-    ></script>
     <style>
       .success {
         border-color: #bce8f1;
@@ -79,6 +68,13 @@
             Live
           </aside>
         </nav>
+         <nav>
+    <aside>
+      <div>
+          <a href='/index.html'><h2>Number Management</h2></a>
+          </div>
+          </aside>
+        </nav>
       </header>
     </div>
     <main>
@@ -95,7 +91,7 @@
         <p>
           Before you start, make sure that the checkbox "Add my Twilio
           Credentials (ACCOUNT_SID) and (AUTH_TOKEN) to ENV" is checked in the
-          "Environmental Variables" section of this Function. If it's not checked,
+          "Environmental Variables" of this Function. If it's not checked,
           enable it and click "Deploy All" at the bottom.
         </p>
         <h2>
@@ -114,40 +110,31 @@
           <a
             target="_blank"
             href="https://console.twilio.com/us1/develop/functions/services"
-            >Function</a
-          >
+            >Function</a>
           - open the Function and click on "Environment Variables" in the bottom
-          left corner, and change the value of Password. Click on "Deploy All"
-          button afterwards in the bottom left corner.
+          left corner, and change the value of Password. Click on "Deploy All" button afterwards in the bottom left corner. <br />
         </p>
         Password:<input id="password" type="password" name="password" />
         <br />
         <div><p>You are working with account:</p></div>
         <div id="masking"></div>
         <div><button onclick="unmask()">Show Account</button></div>
-        <div
-          id="status_acc"
-          style="
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-          "
-        ></div>
+        <div id="status_acc" style="color: #a94442; background-color: #f2dede; border-color: #ebccd1;"></div>
         <div><h3>Fetch Number SID</h3></div>
         <div>
           <form id="fetchSID" action="javascript:number_fetch()">
             <p>
-              In the below field, enter the number to get the SID that you need
-              to use to transfer it. The search is done on your main account and
-              its subaccounts automatically. <br /><b>Be carefull</b>, if you
-              insert an incomplete number, the system will search for a number
-              on your accounts (main account and subaccounts) that starts with
-              what you inserted. <br />
+              In the below field, enter the number to get the SID that you need to use to transfer
+              it. The search is done on your main account and its
+              subaccounts automatically. <br /><b>Be carefull</b>, if you insert an
+              incomplete number, the system will search for a number on your
+              accounts (main account and subaccounts) that starts with what you
+              inserted. <br />
               For example, if you have a number +123456789, and you insert
               +1234567, the details of the complete number will be returned.
               Make sure you check what is the number in the result.
             </p>
-            <input id="fphone" type="text" name="fphone" />
+            <input id="fphone" type="text" name="fphone"  oninput="checkFormat()"  />
             <br />
             <input id="tbutton" type="submit" value="Fetch" />
           </form>
@@ -162,7 +149,7 @@
         <div>
           <form id="transfer" action="javascript:transfer()">
             <p>
-              <b>Be careful</b> - if your number has a Whatsapp configuration
+              <b>Be careful</b> - if your number has a Whastapp configuration
               and you want to preserve it in the transfer, please do NOT use
               this tool and instead contact Twilio Support. If you have A2P
               registrations on the number, those will be lost in the transfer.
@@ -172,9 +159,7 @@
                 href="https://support.twilio.com/hc/en-us/articles/223135327-Moving-Twilio-Phone-Numbers-to-another-Twilio-Account"
                 >FAQ page</a
               >. <br />
-              <b>Hosted Numbers should not</b> be transferred with this tool or
-              the API. Contact Twilio Support if you want to transfer a Hosted
-              number.
+              <b>Hosted Numbers should not</b> be transferred with this tool or the API. Contact Twilio Support if you want to transfer a Hosted number.
             </p>
             <p>
               Enter the SID of the phone number you would like to transfer
@@ -212,14 +197,19 @@
               Insert the Address SID (depends on regulatory requirements of the
               number):
             </p>
-            <input id="addressSID" type="text" name="addressSID" value="" />
+            <input
+              id="addressSID"
+              type="text"
+              name="addressSID"
+              value=""
+            />
             <input id="transfer" type="submit" value="Transfer" />
           </form>
           <div class="alert alert-info" style="display: none"></div>
           <div class="alert alert-error" style="display: none"></div>
         </div>
         <div>
-          <!-- EDIT_CODE_V2 -->
+        <!-- EDIT_CODE -->
         </div>
       </div>
     </main>
@@ -231,6 +221,16 @@ const info = document.querySelector(".alert-info");
 const error = document.querySelector(".alert-error");
 const success = document.querySelector(".alert-success");
 const warning = document.querySelector(".alert-warning");
+
+
+async function checkFormat(){
+		if(!/^\+\d+$/.test(document.getElementById("fphone").value)){
+			document.getElementById("fphone").style.background = "Tomato";
+		}
+		else {
+			document.getElementById("fphone").style.background = "";
+		}
+}
 
 async function transfer() {
   let alertConfirm =
@@ -313,13 +313,13 @@ async function number_fetch() {
   let ajson = null;
   let sid = null;
   let asid = null;
-  let phoneNumber = null;
+  let phoneNumber = document.getElementById("fphone").value;
   let numStatus = null;
   let addReq = null;
+  let insertedNumber = phoneNumber;
 
   const password = document.getElementById("password").value;
-  phoneNumber = document.getElementById("fphone").value;
-
+  
   try {
     success.style.display = "none";
     warning.style.display = "none";
@@ -397,6 +397,12 @@ async function number_fetch() {
       warning.innerHTML = `<pre> ${JSON.stringify(json2, null, 2)}</pre>`;
     } else {
       if (fresponse.status === 200) {
+        if (insertedNumber !== phoneNumber.substring(0, insertedNumber.length,)){
+          warning.style.display = "";
+          success.style.display = "none";
+          warning.innerHTML = `Number not found.`;
+          return;
+	  	  }
         success.style.display = "";
         success.innerHTML = `<pre>Number ${JSON.stringify(
           phoneNumber,
