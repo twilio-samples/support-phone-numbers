@@ -15,17 +15,6 @@
       href="ce-paste-theme.css"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/css/intlTelInput.min.css"
-      integrity="sha256-xpVuhxDPR39wFEQDha4W7kuMx+z9Av3dTS8MbH/RWEU="
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/js/intlTelInput.min.js"
-      integrity="sha256-uPbemOnf3P4eaeLHebLwPC71YRbu3WNBvO4ibYeBnGs="
-      crossorigin="anonymous"
-    ></script>
     <style>
       .success {
         border-color: #bce8f1;
@@ -145,7 +134,7 @@
               +1234567, the details of the complete number will be returned.
               Make sure you check what is the number in the result.
             </p>
-            <input id="fphone" type="text" name="fphone" />
+            <input id="fphone" type="text" name="fphone"  oninput="checkFormat()"  />
             <br />
             <input id="tbutton" type="submit" value="Fetch" />
           </form>
@@ -160,7 +149,7 @@
         <div>
           <form id="transfer" action="javascript:transfer()">
             <p>
-              <b>Be careful</b> - if your number has a Whatsapp configuration
+              <b>Be careful</b> - if your number has a Whastapp configuration
               and you want to preserve it in the transfer, please do NOT use
               this tool and instead contact Twilio Support. If you have A2P
               registrations on the number, those will be lost in the transfer.
@@ -232,6 +221,16 @@ const info = document.querySelector(".alert-info");
 const error = document.querySelector(".alert-error");
 const success = document.querySelector(".alert-success");
 const warning = document.querySelector(".alert-warning");
+
+
+async function checkFormat(){
+		if(!/^\+\d+$/.test(document.getElementById("fphone").value)){
+			document.getElementById("fphone").style.background = "Tomato";
+		}
+		else {
+			document.getElementById("fphone").style.background = "";
+		}
+}
 
 async function transfer() {
   let alertConfirm =
@@ -314,13 +313,13 @@ async function number_fetch() {
   let ajson = null;
   let sid = null;
   let asid = null;
-  let phoneNumber = null;
+  let phoneNumber = document.getElementById("fphone").value;
   let numStatus = null;
   let addReq = null;
+  let insertedNumber = phoneNumber;
 
   const password = document.getElementById("password").value;
-  phoneNumber = document.getElementById("fphone").value;
-
+  
   try {
     success.style.display = "none";
     warning.style.display = "none";
@@ -398,6 +397,12 @@ async function number_fetch() {
       warning.innerHTML = `<pre> ${JSON.stringify(json2, null, 2)}</pre>`;
     } else {
       if (fresponse.status === 200) {
+        if (insertedNumber !== phoneNumber.substring(0, insertedNumber.length,)){
+          warning.style.display = "";
+          success.style.display = "none";
+          warning.innerHTML = `Number not found.`;
+          return;
+	  	  }
         success.style.display = "";
         success.innerHTML = `<pre>Number ${JSON.stringify(
           phoneNumber,
