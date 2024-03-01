@@ -3,7 +3,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>List Phone numbers</title>
     <link
@@ -446,17 +445,22 @@ async function list_numbers(down) {
   }
   let allNumbers = "";
   let page = 0;
+  let subPage = 0;
   let Pagetoken = "";
+  let subPageToken = '';
   let pageAll = 0;
+  let subPageAll = 0;
   let columnAdded = 0;
   let data = null;
+  let subData = null;
   let response = null;
   let json = null;
   let numNumbers = null;
   let k = 0;
   let numCount = 0;
   let aresponse = null;
-  let ajson = null;
+  let ajson = [];
+  let aPageJson = null;
   let noNumbers = 0;
   let numberStartsCount = 0;
   let numberProperties = document.getElementsByName("numberProperties");
@@ -508,41 +512,64 @@ async function list_numbers(down) {
     }
 
     if (document.getElementById("allSubaccounts").checked) {
-      aresponse = await fetch("./list_accounts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: password,
-        },
-      });
-      console.log("return from Acc function");
+    
+      while (subPageAll === 0) {
+             
+        subData = {
+          pageSize: 20,
+          page: subPage,
+          pageToken: decodeURIComponent(subPageToken),
+        };
+        aresponse = await fetch("./list_accounts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: password,
+          },
+          body: JSON.stringify(subData),
+        });
+        console.log("return from Acc function");
+        if (aresponse.status === 200) {
+          aPageJson = await aresponse.json();
+          if (aPageJson.er === 0) {
+            error.style.display = "";
+            status_acc.style.display = "none";
+            info.style.display = "none";
+            progress.innerHTML = '';
+            progress.style.display = "none";
+            for (m = 0; m < numberProperties.length; m++) {
+              numberProperties[m].disabled = false;
+            }
+            error.innerHTML = `Wrong password.`;
+            return;
+          }
+          if (aPageJson[aPageJson.length-1] !== "end") {
+            subPageToken = aPageJson[aPageJson.length-1];
+            console.log(subPageToken);
+          } else {
+            subPageAll = 1;
+            subPageToken = '';
+          }
+          subPage += 1;
+          aPageJson.pop();
+          console.log(aPageJson);
+          for(let z in aPageJson){
+            ajson.push(aPageJson[z]);
+          }
+          console.log(ajson);
 
-      if (aresponse.status === 200) {
-        ajson = await aresponse.json();
-
-        if (ajson.er === 0) {
+        } else {
           error.style.display = "";
-          status_acc.style.display = "none";
-          info.style.display = "none";
           progress.innerHTML = '';
           progress.style.display = "none";
           for (m = 0; m < numberProperties.length; m++) {
             numberProperties[m].disabled = false;
           }
-          error.innerHTML = `Wrong password.`;
+          error.innerHTML = `Something went wrong with getting the list of accounts:<br /> Server error is ${aresponse.message}<br /> Server status is ${aresponse.status}`;
           return;
         }
-      } else {
-        error.style.display = "";
-        progress.innerHTML = '';
-        progress.style.display = "none";
-        for (m = 0; m < numberProperties.length; m++) {
-          numberProperties[m].disabled = false;
-        }
-        error.innerHTML = `Something went wrong with getting the list of accounts:<br /> Server error is ${aresponse.message}<br /> Server status is ${aresponse.status}`;
-        return;
       }
-console.log (ajson);
+      console.log (ajson);
       for (a = 0; a < ajson.length; a++) {
         numberStartsCount = 0;
         while (pageAll === 0) {
@@ -1266,6 +1293,7 @@ async function unmask() {
   if (acc.er === 0) {
     status_acc.innerHTML = `Wrong password.`;
     info.innerHTML = "";
+    status_acc.style.display = "";
 
     return;
   }
@@ -1285,4 +1313,4 @@ async function clear_list() {
 }
     </script>
   </body>
-</html>
+</html> 
