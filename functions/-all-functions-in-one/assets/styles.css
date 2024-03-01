@@ -14,24 +14,28 @@
   border-color: #bce8f1;
   color: #31708f;
   background-color: #d9edf7;
+  word-wrap: break-word;
 }
 
 .alert-error {
   color: #c21e1e;
   background-color: #f2dede;
   border-color: #ebccd1;
+  word-wrap: break-word;
 }
 
 .alert-success {
   border-color: #bce8f1;
   color: #31708f;
   background-color: #d9edf7;
+  word-wrap: break-word;
 }
 
 .alert-warning {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
+  word-wrap: break-word;
 }
 
 .hero-unit {
