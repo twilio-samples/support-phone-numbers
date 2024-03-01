@@ -5,7 +5,7 @@
 ## [1.2.0]
 ### Added
 - Fixed bug which prevents listing all numbers when there are many subaccounts. User interface did not change. 
-- Fixed .css text formatting issue where in the browser results the text did not move to new lines. 
+- Fixed .css text formatting issue where in the browser the text did not move to new lines. 
 
 ## [1.1.0]
 ### Added
