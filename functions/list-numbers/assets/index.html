@@ -1166,6 +1166,8 @@ async function list_numbers(down) {
       allNumbers = allNumbers.replace(/\"/g, "");
       allNumbers = allNumbers.replace(/<\/pre>/g, "%0D%0A");
       allNumbers = allNumbers.replace(/<pre>/g, "");
+      allNumbers = encodeURIComponent(allNumbers).replaceAll("%250D%250A", "%0D%0A");
+      
       let a = document.body.appendChild(document.createElement("a"));
       if (document.getElementById("fileFormatcsv").checked) {
         a.download = "listNumbers.csv";
@@ -1213,16 +1215,15 @@ function download() {
   }
   let a = document.body.appendChild(document.createElement("a"));
   let newlines = document.getElementById("info1").innerHTML;
+  newlines = newlines.replace(/<\/pre>/g, "%0D%0A");
+  newlines = newlines.replace(/<pre>/g, "");
+  newlines = encodeURIComponent(newlines).replaceAll("%250D%250A", "%0D%0A");
   if (document.getElementById("fileFormatcsv").checked) {
     a.download = "listNumbers.csv";
-    newlines = newlines.replace(/<\/pre>/g, "%0D%0A");
-    newlines = newlines.replace(/<pre>/g, "");
     a.href = "data:text/csv;charset=utf-8," + newlines;
     a.click(); //Trigger a click on the element
   } else {
     a.download = "listNumbers.txt";
-    newlines = newlines.replace(/<\/pre>/g, "%0D%0A");
-    newlines = newlines.replace(/<pre>/g, "");
     a.href = "data:text/plain," + newlines;
     a.click(); //Trigger a click on the element
   }
