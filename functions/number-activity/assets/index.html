@@ -15,6 +15,17 @@
       href="ce-paste-theme.css"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/css/intlTelInput.min.css"
+      integrity="sha256-xpVuhxDPR39wFEQDha4W7kuMx+z9Av3dTS8MbH/RWEU="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.13/build/js/intlTelInput.min.js"
+      integrity="sha256-uPbemOnf3P4eaeLHebLwPC71YRbu3WNBvO4ibYeBnGs="
+      crossorigin="anonymous"
+    ></script>
     <style>
       .success {
         border-color: #bce8f1;
@@ -175,13 +186,13 @@
                 <option value="Yes">Yes</option>
                 <option value="No" selected>No</option>
               </select>
-          &nbsp; Maximum number of messages/calls to check per number (1-10000):
+          &nbsp; Maximum number of messages/calls to check per number (1-2000):
           <input
                 type="number"
                 id="limit"
                 name="limit"
                 min="1"
-                max="10000"
+                max="2000"
                 value="1"
               />
         </div>
@@ -269,9 +280,9 @@ async function checkUsage(down) {
       error.innerHTML = `From Date must be before To Date.`;
       return;
     }
-    if (((limit % 1 !== 0) || (limit<1 || limit>10000)) && limitation==="Yes"){
+    if (((limit % 1 !== 0) || (limit<1 || limit>2000)) && limitation==="Yes"){
       error.style.display = "";
-      error.innerHTML = `Maximum number of messages/calls to check must be between 1 and 10000, and it must be a complete number - no decimals`;
+      error.innerHTML = `Maximum number of messages/calls to check must be between 1 and 2000, and it must be a complete number - no decimals`;
       return; 
     }
     if(startNumber !== ""){
@@ -493,6 +504,7 @@ async function checkUsage(down) {
       allNumbers = allNumbers.replace(/\"/g, "");
       allNumbers = allNumbers.replace(/<pre>/g, "%0D%0A");
       allNumbers = allNumbers.replace(/<\/pre>/g, "");
+      allNumbers = encodeURIComponent(allNumbers).replaceAll("%250D%250A", "%0D%0A");
       let a = document.body.appendChild(document.createElement("a"));
       if (document.getElementById("fileFormatcsv").checked){
 
@@ -535,17 +547,16 @@ function download() {
   }
   let a = document.body.appendChild(document.createElement("a"));
   let newlines = document.getElementById("info1").innerHTML;
+  newlines = newlines.replace(/<pre>/g, "%0D%0A");
+  newlines = newlines.replace(/<\/pre>/g, "");
+  newlines = encodeURIComponent(newlines).replaceAll("%250D%250A", "%0D%0A");
   if (document.getElementById("fileFormatcsv").checked){
     a.download = "listNumbers.csv";
-    newlines = newlines.replace(/<pre>/g, "%0D%0A");
-    newlines = newlines.replace(/<\/pre>/g, "");
     a.href = "data:text/csv;charset=utf-8," + newlines;
     a.click(); //Trigger a click on the element
   }
   else {
   a.download = "listNumbers.txt";
-  newlines = newlines.replace(/<pre>/g, "%0D%0A");
-  newlines = newlines.replace(/<\/pre>/g, "");
   a.href = "data:text/plain," + newlines;
   a.click(); //Trigger a click on the element
   }
