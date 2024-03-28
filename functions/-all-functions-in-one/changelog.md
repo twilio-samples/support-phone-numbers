@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.2.2]
+### Added
+- Fixed bug in "Number Activity" feature which breaks downloading the data when "Friendly Name" contains special characters.
+- Reduced the call/message limit to 2000 for "Number Activity" feature.
+
 ## [1.2.1]
 ### Added
 - Fixed bug in "List Numbers" feature which breaks downloading the numbers list when "Friendly Name" contains special characters.
