@@ -327,28 +327,28 @@ async function checkUsage(down) {
       });
       console.log(data);
       console.log(response);
-      json = await response.json();
-      console.log(json);
-
-      if (json.er === 0) {
-        error.style.display = "";
-        info.style.display = "none";
-        progress.style.display = "none";
-        progress.innerHTML=``;
-        error.innerHTML = `Wrong password.`;
-        console.log(response);
-        return;
-      }
-      if (json === "number not found") {
-        error.style.display = "";
-        info.style.display = "none";
-        progress.style.display = "none";
-        progress.innerHTML=``;
-        error.innerHTML = `Number not found.`;
-        return;
-      }
-
       if (response.status === 200) {
+        json = await response.json();
+        console.log(json);
+
+        if (json.er === 0) {
+          error.style.display = "";
+          info.style.display = "none";
+          progress.style.display = "none";
+          progress.innerHTML=``;
+          error.innerHTML = `Wrong password.`;
+          console.log(response);
+          return;
+        }
+        if (json === "number not found") {
+          error.style.display = "";
+          info.style.display = "none";
+          progress.style.display = "none";
+          progress.innerHTML=``;
+          error.innerHTML = `Number not found.`;
+          return;
+        }
+
         if (pagination === "Yes" && oneNumber === "") {
           if (json.nextPageUrl) {
             Pagetoken = json.nextPageUrl.split("PageToken=")[1];
@@ -424,10 +424,10 @@ async function checkUsage(down) {
             body: JSON.stringify(data),
           });
           console.log(usageResponse);
+          
+        if (usageResponse.status === 200) {
           usagejson = await usageResponse.json();
           console.log(usagejson);
-
-        if (usageResponse.status === 200) {
           allNumbers =
             allNumbers +
             usagejson[0] +
@@ -473,33 +473,35 @@ async function checkUsage(down) {
           }
         }
           else{
-            console.error(usagejson.message);
+            usagejson = await usageResponse.text();
+            console.log(usagejson);
             error.style.display = "";
             info.innerHTML = ``;
             info.style.display = "none";
             progress.innerHTML=``;
             progress.style.display = "none";
-            error.innerHTML = `Something is wrong with getting the Usage: <br/>Server message is: ${usagejson.message} <br />Server response status is: ${usageResponse.status}<br />Server error is: ${usagejson.error}`;
+            error.innerHTML = `Something is wrong with getting the Usage: <br />Request sent: ${JSON.stringify(data)}<br/>Server response status is: ${usageResponse.status}<br />Server message is: ${usagejson}`;
             return;
           }
         } //for closed
       } //if status 200 closed
       else {
-        console.error(json.error);
+        json = await response.text();
+        console.log(json);
         error.style.display = "";
         info.innerHTML = ``;
         info.style.display = "none";
         progress.style.display = "none";
         progress.innerHTML=``;
-        error.innerHTML = `Something is wrong with getting the list of numbers present on account: <br />Server message is: ${json.message}<br />Server response status is: ${response.status}<br />Server error is: ${json.error}`;
+        error.innerHTML = `Something went wrong with getting the list of numbers present on account: <br />Server response status is: ${response.status}<br />Server message is: ${json}`;
         return;
       }
     } //while closed
 
     if (down === 1) {
       allNumbers = allNumbers.replace(/\"/g, "");
-      allNumbers = allNumbers.replace(/<\/pre>/g, "%0D%0A");
-      allNumbers = allNumbers.replace(/<pre>/g, "");
+      allNumbers = allNumbers.replace(/<pre>/g, "%0D%0A");
+      allNumbers = allNumbers.replace(/<\/pre>/g, "");
       allNumbers = encodeURIComponent(allNumbers).replaceAll("%250D%250A", "%0D%0A");
       let a = document.body.appendChild(document.createElement("a"));
       if (document.getElementById("fileFormatcsv").checked){
@@ -543,8 +545,8 @@ function download() {
   }
   let a = document.body.appendChild(document.createElement("a"));
   let newlines = document.getElementById("info1").innerHTML;
-  newlines = newlines.replace(/<\/pre>/g, "%0D%0A");
-  newlines = newlines.replace(/<pre>/g, "");
+  newlines = newlines.replace(/<pre>/g, "%0D%0A");
+  newlines = newlines.replace(/<\/pre>/g, "");
   newlines = encodeURIComponent(newlines).replaceAll("%250D%250A", "%0D%0A");
   if (document.getElementById("fileFormatcsv").checked){
     a.download = "listNumbers.csv";
