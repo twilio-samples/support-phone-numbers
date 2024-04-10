@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.2.3]
+### Added
+- Improved error display on application timeout for "Number Activity" feature. 
+
 ## [1.2.2]
 ### Added
 - Fixed bug in "Number Activity" feature which breaks downloading the data when "Friendly Name" contains special characters.
