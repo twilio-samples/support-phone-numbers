@@ -426,7 +426,7 @@
         <div><br /></div>
         <div>Select the format that will be used when the data is downloaded: <br />
           <input type="radio" id="fileFormatcsv" name="fileFormatcsv" value="csv">
-          <label for="fileFormatcsv">csv</label><br / >
+          <label for="fileFormatcsv">csv</label><br />
           <input type="radio" id="fileFormattxt" name="fileFormatcsv" value="txt" checked>
           <label for="fileFormattxt">text</label><br />  <br />
         </div>
@@ -660,7 +660,7 @@ async function checkUsage(down) {
 
         if (response.status === 200) {
           if (messagesLog.nextPageUrl) {
-            Pagetoken = messagesLog.nextPageUrl.split("PageToken=")[1];
+            Pagetoken = new URLSearchParams(messagesLog.nextPageUrl).get("PageToken");
           } else {
             pageAll += 1;
           }
@@ -1276,7 +1276,7 @@ async function checkUsage(down) {
 
         if (response.status === 200) {
           if (messagesLog.nextPageUrl) {
-            Pagetoken = messagesLog.nextPageUrl.split("PageToken=")[1];
+            Pagetoken = new URLSearchParams(messagesLog.nextPageUrl).get("PageToken");
           } else {
             pageAll += 1;
           }
@@ -1463,7 +1463,7 @@ async function checkUsage(down) {
 
         if (response.status === 200) {
           if (callLog.nextPageUrl) {
-            Pagetoken = callLog.nextPageUrl.split("PageToken=")[1];
+            Pagetoken = new URLSearchParams(callLog.nextPageUrl).get("PageToken");
           } else {
             pageAllCalls = 1;
           }
@@ -2079,7 +2079,7 @@ async function checkUsage(down) {
 
         if (response.status === 200) {
           if (callLog.nextPageUrl) {
-            Pagetoken = callLog.nextPageUrl.split("PageToken=")[1];
+            Pagetoken = new URLSearchParams(callLog.nextPageUrl).get("PageToken");
           } else {
             pageAllCalls = 1;
           }
