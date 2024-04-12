@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.2.4]
+### Added
+- Fixed pagination for "Number Usage" feature for SMS data.
+
 ## [1.2.3]
 ### Added
 - Improved error display on application timeout for "Number Activity" feature. 
