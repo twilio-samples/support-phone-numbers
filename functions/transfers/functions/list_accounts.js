@@ -27,7 +27,7 @@ exports.handler = async function (context, event, callback) {
           i += 1;
         }
         if(accounts.nextPageUrl !== undefined){
-          allAccounts[i] = accounts.nextPageUrl.split("PageToken=")[1];
+          allAccounts[i] = URL.parse(accounts.nextPageUrl).searchParams.get("PageToken");
         }
         else {
           allAccounts[i] = "end";
