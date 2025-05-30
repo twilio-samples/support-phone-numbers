@@ -615,7 +615,7 @@ async function list_numbers(down) {
 
             if (pagination === "Yes") {
               if (json.nextPageUrl) {
-                Pagetoken = json.nextPageUrl.split("PageToken=")[1];
+                Pagetoken = URL.parse(json.nextPageUrl).searchParams.get("PageToken");
               } else {
                 pageAll = 1;
                 Pagetoken = '';
@@ -923,7 +923,7 @@ async function list_numbers(down) {
 
           if (pagination === "Yes") {
             if (json.nextPageUrl) {
-              Pagetoken = json.nextPageUrl.split("PageToken=")[1];
+              Pagetoken = URL.parse(json.nextPageUrl).searchParams.get("PageToken");
             } else {
               pageAll = 1;
               Pagetoken = "";
